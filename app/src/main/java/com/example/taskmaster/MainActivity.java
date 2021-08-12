@@ -3,10 +3,13 @@ package com.example.taskmaster;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -57,5 +60,37 @@ public class MainActivity extends AppCompatActivity {
     public void all(View view) {
         Intent allIntent = new Intent(this, AllTasks.class);
         startActivity(allIntent);
+    }
+
+    public void firstButton(View view) {
+        Intent tasks = new Intent(this,TasksDetailActivity.class);
+        tasks.putExtra("title", "Task1");
+        startActivity(tasks);
+
+    }
+
+    public void secButt(View view) {
+        Intent tasks = new Intent(this,TasksDetailActivity.class);
+        tasks.putExtra("title", "Task2");
+        startActivity(tasks);
+    }
+
+    public void therButt(View view) {
+        Intent tasks = new Intent(this,TasksDetailActivity.class);
+        tasks.putExtra("title", "Task3");
+        startActivity(tasks);
+    }
+
+    public void settingsButton(View view) {
+        Intent setting = new Intent(MainActivity.this, Settings.class);
+        MainActivity.this.startActivity(setting);
+    }
+    @Override
+    public void onResume() {
+
+        super.onResume();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        TextView address = findViewById(R.id.textView);
+        address.setText(preferences.getString("userName", "User") + "'s Task");
     }
 }
