@@ -7,7 +7,11 @@
         android:orderInCategory="100"
         android:title="All Task"
         app:showAsAction="never" />
-
+    <item
+        android:id="@+id/setting"
+        android:orderInCategory="200"
+        android:title="Setting"
+        app:showAsAction="never"/>
     <item
         android:id="@+id/addMenu"
         android:orderInCategory="200"
