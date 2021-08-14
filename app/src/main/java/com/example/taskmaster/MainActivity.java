@@ -3,6 +3,7 @@ package com.example.taskmaster;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -24,8 +25,11 @@ public class MainActivity extends AppCompatActivity {
     public static final String TASK_STATE = "task_state";
     private List<Tasks> tasksList;
     private TaskAdapter adapter;
-
-
+    private TaskDao taskDao;
+    private TaskDatabase db;
+    public List<Tasks> getTasksList() {
+        return tasksList;
+    }
 
 
 
@@ -67,21 +71,26 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        RecyclerView TaskRecyclerView = findViewById(R.id.list);
+        db = Room.databaseBuilder(getApplicationContext(),
+                TaskDatabase.class, AddTask.TASK_ITEM).allowMainThreadQueries().build();
+        taskDao = db.taskDao();
+        tasksList = taskDao.findAll();
 
-        Tasks task1 = new Tasks("Task 1", "try to complete it", "in progress");
-        Tasks task2 = new Tasks("Task 2", "Do it", "assigned");
-        Tasks task3 = new Tasks("Task 3", "Done !", "completed");
-        Tasks task4 = new Tasks("Task 4", "You should start it", "new");
-        Tasks task5 = new Tasks("Task 5", "Try to complete it", "in progress");
-
-
-        tasksList = new ArrayList<>();
-        tasksList.add(task1);
-        tasksList.add(task2);
-        tasksList.add(task3);
-        tasksList.add(task4);
-        tasksList.add(task5);
+        RecyclerView TaskRecyclerView = findViewById(R.id.list3);
+//
+//        Tasks task1 = new Tasks("Task 1", "try to complete it", "in progress");
+//        Tasks task2 = new Tasks("Task 2", "Do it", "assigned");
+//        Tasks task3 = new Tasks("Task 3", "Done !", "completed");
+//        Tasks task4 = new Tasks("Task 4", "You should start it", "new");
+//        Tasks task5 = new Tasks("Task 5", "Try to complete it", "in progress");
+//
+//
+//        tasksList = new ArrayList<>();
+//        tasksList.add(task1);
+//        tasksList.add(task2);
+//        tasksList.add(task3);
+//        tasksList.add(task4);
+//        tasksList.add(task5);
 
 
         adapter = new TaskAdapter(tasksList, new TaskAdapter.OnTaskItemClickListener() {
@@ -95,6 +104,14 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
+            @Override
+            public void onDeleteItem(int position) {
+                taskDao.delete(tasksList.get(position));
+                tasksList.remove(position);
+                notifyDatasetChanged();
+                Toast.makeText(MainActivity.this, "Item deleted", Toast.LENGTH_SHORT).show();
+            }
+
 
         });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
@@ -105,8 +122,11 @@ public class MainActivity extends AppCompatActivity {
         TaskRecyclerView.setLayoutManager(linearLayoutManager);
         TaskRecyclerView.setAdapter(adapter);
 
-    }
 
+    }
+    private void notifyDatasetChanged() {
+        adapter.notifyDataSetChanged();
+    }
     public void add(View view) {
         Intent addIntent = new Intent(this, AddTask.class);
         startActivity(addIntent);
