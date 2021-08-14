@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void all(View view) {
-        Intent allIntent = new Intent(this, AllTasks.class);
+        Intent allIntent = new Intent(this, ListTask.class);
         startActivity(allIntent);
     }
 
