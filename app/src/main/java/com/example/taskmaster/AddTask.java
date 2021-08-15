@@ -3,6 +3,7 @@ package com.example.taskmaster;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -50,8 +51,6 @@ public class AddTask extends AppCompatActivity {
                 String text = (String) adapterView.getItemAtPosition(position);
                 taskItemImage = imageIconDatabase.get(text);
                 Log.i(TAG, "onItemSelected: " + text);
-
-
             }
 
             @Override
@@ -77,6 +76,9 @@ public class AddTask extends AppCompatActivity {
                 tasks.setImage(taskItemImage);
                 taskDao.insertOne(tasks);
                 Toast.makeText(AddTask.this, "Item added", Toast.LENGTH_SHORT).show();
+
+                Intent mainIntent = new Intent(AddTask.this, MainActivity.class);
+                startActivity(mainIntent);
             }
         });
     }
