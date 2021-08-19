@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">taskMaster</string>
     <string name="add_task">ADD TASK</string>
+    <string name="settings">Settings</string>
     <string-array name="tasks">
     <item>To Do</item>
     <item>Free Day</item>

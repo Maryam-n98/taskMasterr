@@ -2,6 +2,7 @@ package com.example.taskmaster;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -26,5 +27,7 @@ public class Settings extends AppCompatActivity {
 
         Toast toast = Toast.makeText(this, "Your Name Saved", Toast.LENGTH_SHORT);
         toast.show();
+        Intent mainIntent = new Intent(Settings.this, MainActivity.class);
+        startActivity(mainIntent);
     }
 }
