@@ -55,7 +55,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         private TextView title;
         private TextView body;
         private TextView state ;
-        private TextView delete;
+        private ImageView delete;
 
 
         ViewHolder(@NonNull View itemView, OnTaskItemClickListener listener){
