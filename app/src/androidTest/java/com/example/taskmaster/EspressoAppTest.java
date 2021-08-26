@@ -67,6 +67,4 @@ public ActivityScenarioRule<MainActivity> activityScenarioRule =
         onView(withId(R.id.textViewBody)).check(matches(withText("Lab 30")));
         onView(withId(R.id.textViewState)).check(matches(withText("New")));
     }
-
-
 }
