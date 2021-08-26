@@ -83,7 +83,4 @@ public class AddTask extends AppCompatActivity {
         });
     }
 
-//    public void addTask(View view) {
-//        Toast.makeText(this, "Task Added!", Toast.LENGTH_SHORT).show();
-//    }
 }
